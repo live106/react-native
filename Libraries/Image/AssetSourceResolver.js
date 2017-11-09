@@ -21,6 +21,9 @@ export type ResolvedAssetSource = {
 
 import type { PackagerAsset } from 'AssetRegistry';
 
+// 全局缓存  @live106
+let patchImgNames = '';
+
 const PixelRatio = require('PixelRatio');
 const Platform = require('Platform');
 
@@ -66,7 +69,12 @@ class AssetSourceResolver {
   }
 
   isLoadedFromFileSystem(): boolean {
-    return !!this.bundleUrl;
+    // 判断是否为增量更新的图片 @live106
+    const imgFolder = getAssetPathInDrawableFolder(this.asset);
+    const imgName = imgFolder.substr(imgFolder.indexOf("/") + 1);
+    const isPatchImg = patchImgNames.indexOf("|"+imgName+"|") > -1;
+    return !!this.bundlePath && isPatchImg;
+    // return !!this.bundleUrl;
   }
 
   defaultAsset(): ResolvedAssetSource {
