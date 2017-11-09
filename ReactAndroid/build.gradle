@@ -35,7 +35,9 @@ task createNativeDepsDirectories {
 }
 
 task downloadBoost(dependsOn: createNativeDepsDirectories, type: Download) {
-    src 'https://github.com/react-native-community/boost-for-react-native/releases/download/v1.63.0-0/boost_1_63_0.tar.gz'
+        // 修改下载地址，提高下载速度 @live106
+    //    src 'https://github.com/react-native-community/boost-for-react-native/releases/download/v1.63.0-0/boost_1_63_0.tar.gz'
+    src 'http://versaweb.dl.sourceforge.net/project/boost/boost/1.63.0/boost_1_63_0.tar.gz'
     onlyIfNewer true
     overwrite false
     dest new File(downloadsDir, 'boost_1_63_0.tar.gz')
@@ -252,7 +254,9 @@ android {
 
     sourceSets.main {
         jni.srcDirs = []
-        jniLibs.srcDir "$buildDir/react-ndk/exported"
+        // 将react-ndk从build目录中移出来，防止每次都重新下载编译。 @live106
+        jniLibs.srcDir "react-ndk/exported"
+//        jniLibs.srcDir "$buildDir/react-ndk/exported"
         res.srcDirs = ['src/main/res/devsupport', 'src/main/res/shell', 'src/main/res/views/modal', 'src/main/res/views/uimanager']
         java {
             srcDirs = ['src/main/java', 'src/main/libraries/soloader/java', 'src/main/jni/first-party/fb/jni/java']
@@ -265,7 +269,8 @@ android {
         compileTask -> compileTask.dependsOn packageReactNdkLibs
     }
 
-    clean.dependsOn cleanReactNdkLib
+    // comment dependOn @live106
+    //clean.dependsOn cleanReactNdkLib
 
     lintOptions {
         abortOnError false
