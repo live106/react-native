@@ -1092,9 +1092,17 @@ public class ReactInstanceManager {
     ReactMarker.logMarker(CREATE_REACT_CONTEXT_START);
     final ReactApplicationContext reactContext = new ReactApplicationContext(mApplicationContext);
 
-    if (mUseDeveloperSupport) {
-      reactContext.setNativeModuleCallExceptionHandler(mDevSupportManager);
-    }
+    // 调整，dev是使用mDevSupportManager,否则使用自定义传入的Exception Handler @live106
+    reactContext.setNativeModuleCallExceptionHandler(
+            mUseDeveloperSupport
+                    ? mDevSupportManager
+                    : (mNativeModuleCallExceptionHandler != null
+                    ? mNativeModuleCallExceptionHandler
+                    : mDevSupportManager));
+
+//    if (mUseDeveloperSupport) {
+//      reactContext.setNativeModuleCallExceptionHandler(mDevSupportManager);
+//    }
 
     NativeModuleRegistry nativeModuleRegistry = processPackages(reactContext, mPackages, false);
 
