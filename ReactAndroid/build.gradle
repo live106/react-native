@@ -255,8 +255,8 @@ android {
     sourceSets.main {
         jni.srcDirs = []
         // 将react-ndk从build目录中移出来，防止每次都重新下载编译。 @live106
-        jniLibs.srcDir "react-ndk/exported"
-//        jniLibs.srcDir "$buildDir/react-ndk/exported"
+//        jniLibs.srcDir "react-ndk/exported"
+        jniLibs.srcDir "$buildDir/react-ndk/exported"
         res.srcDirs = ['src/main/res/devsupport', 'src/main/res/shell', 'src/main/res/views/modal', 'src/main/res/views/uimanager']
         java {
             srcDirs = ['src/main/java', 'src/main/libraries/soloader/java', 'src/main/jni/first-party/fb/jni/java']
@@ -270,7 +270,7 @@ android {
     }
 
     // comment dependOn @live106
-    //clean.dependsOn cleanReactNdkLib
+    clean.dependsOn cleanReactNdkLib
 
     lintOptions {
         abortOnError false
