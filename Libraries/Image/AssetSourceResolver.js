@@ -70,11 +70,11 @@ class AssetSourceResolver {
 
   isLoadedFromFileSystem(): boolean {
     // 判断是否为增量更新的图片 @live106
-    const imgFolder = getAssetPathInDrawableFolder(this.asset);
-    const imgName = imgFolder.substr(imgFolder.indexOf("/") + 1);
-    const isPatchImg = patchImgNames.indexOf("|"+imgName+"|") > -1;
-    return !!this.bundleUrl && isPatchImg;
-    // return !!this.bundleUrl;
+    // const imgFolder = getAssetPathInDrawableFolder(this.asset);
+    // const imgName = imgFolder.substr(imgFolder.indexOf("/") + 1);
+    // const isPatchImg = patchImgNames.indexOf("|"+imgName+"|") > -1;
+    // return !!this.bundleUrl && isPatchImg;
+    return !!this.bundleUrl;
   }
 
   defaultAsset(): ResolvedAssetSource {
