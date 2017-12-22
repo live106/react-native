@@ -73,7 +73,7 @@ class AssetSourceResolver {
     const imgFolder = getAssetPathInDrawableFolder(this.asset);
     const imgName = imgFolder.substr(imgFolder.indexOf("/") + 1);
     const isPatchImg = patchImgNames.indexOf("|"+imgName+"|") > -1;
-    return !!this.bundlePath && isPatchImg;
+    return !!this.bundleUrl && isPatchImg;
     // return !!this.bundleUrl;
   }
 
